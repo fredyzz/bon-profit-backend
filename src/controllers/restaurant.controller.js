@@ -16,8 +16,19 @@ function restaurantController() {
     }
   }
 
+  async function getById(req, res) {
+    try {
+      const restaurant = await Restaurant.findById(req.params.restaurantId)
+        .populate([{ path: 'orders', model: Order }, { path: 'dishes', model: Dish }]);
+      return res.json(restaurant);
+    } catch (error) {
+      return res.status(404);
+    }
+  }
+
   return {
     getAll,
+    getById,
   };
 }
 

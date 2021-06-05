@@ -8,4 +8,8 @@ router
   .route('/')
   .get(restaurantController.getAll);
 
+router
+  .route('/:restaurantId')
+  .get(restaurantController.getById);
+
 module.exports = router;
