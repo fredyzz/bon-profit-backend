@@ -52,7 +52,7 @@ function orderController() {
 
   async function getAll(req, res) {
     try {
-      const orders = await Order.find({ user: req.userId });
+      const orders = await Order.find({ userId: req.userId });
       return res.json(orders);
     } catch (error) {
       return res.status(404);
