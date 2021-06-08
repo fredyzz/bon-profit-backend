@@ -6,12 +6,12 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(orderController.getAll);
+  .get(orderController.getAll)
+  .post(orderController.save);
 
 router
   .route('/:orderId')
   .get(orderController.getById)
-  .put(orderController.update)
-  .post(orderController.save);
+  .put(orderController.update);
 
 module.exports = router;

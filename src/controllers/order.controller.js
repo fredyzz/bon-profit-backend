@@ -40,7 +40,8 @@ function orderController() {
 
       return res.json(newOrder);
     } catch (error) {
-      return res.status(404);
+      console.log(error);
+      // return res.status(404);
     }
   }
 
