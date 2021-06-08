@@ -9,7 +9,6 @@ const orderSchema = Schema({
   }],
   isDelivered: Boolean,
   isPaid: Boolean,
-  imageUrl: String,
 });
 
 module.exports = model('Order', orderSchema);

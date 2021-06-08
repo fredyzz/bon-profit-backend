@@ -28,6 +28,22 @@ function orderController() {
     }
   }
 
+  async function save(req, res) {
+    try {
+      const newOrder = await Order.create({
+        userId: req.body.userId,
+        date: req.body.date,
+        dishes: req.body.dishes,
+        isDelivered: false,
+        isPaid: false,
+      });
+
+      return res.json(newOrder);
+    } catch (error) {
+      return res.status(404);
+    }
+  }
+
   async function getAll(req, res) {
     try {
       const orders = await Order.find({ userId: req.userId });
@@ -41,6 +57,7 @@ function orderController() {
     getById,
     update,
     getAll,
+    save,
   };
 }
 

@@ -11,6 +11,7 @@ router
 router
   .route('/:orderId')
   .get(orderController.getById)
-  .put(orderController.update);
+  .put(orderController.update)
+  .post(orderController.save);
 
 module.exports = router;
