@@ -41,7 +41,7 @@ function orderController() {
 
       await User.findOneAndUpdate(
         req.user._id,
-        { $addToSet: { orders: req.body.orderid } },
+        { $addToSet: { orders: newOrder._id } },
       );
 
       return res.json(newOrder);
