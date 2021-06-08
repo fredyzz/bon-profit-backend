@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const debug = require('debug')('server:userController');
 const Order = require('../models/order.model');
+const User = require('../models/user.model');
 
 function orderController() {
   debug('Entered to orderController');
@@ -37,6 +38,11 @@ function orderController() {
         isDelivered: false,
         isPaid: false,
       });
+
+      await User.findOneAndUpdate(
+        req.user._id,
+        { $addToSet: { orders: req.body.orderid } },
+      );
 
       return res.json(newOrder);
     } catch (error) {
