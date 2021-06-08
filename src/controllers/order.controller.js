@@ -31,7 +31,7 @@ function orderController() {
   async function save(req, res) {
     try {
       const newOrder = await Order.create({
-        userId: req.user._id,
+        user: req.user._id,
         date: Date.now(),
         dishes: req.body.dishes,
         isDelivered: false,
@@ -46,7 +46,7 @@ function orderController() {
 
   async function getAll(req, res) {
     try {
-      const orders = await Order.find({ userId: req.userId });
+      const orders = await Order.find({ user: req.userId });
       return res.json(orders);
     } catch (error) {
       return res.status(404);

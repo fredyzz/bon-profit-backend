@@ -11,6 +11,10 @@ router
   .post(userController.updateUser);
 
 router
+  .route('/order/:orderId')
+  .post(userController.addOrder);
+
+router
   .route('/avatar')
   .post(uploadAvatar.single('upload'), userController.saveAvatar);
 

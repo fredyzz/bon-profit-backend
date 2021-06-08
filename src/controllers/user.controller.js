@@ -29,6 +29,20 @@ function userController() {
     }
   }
 
+  async function addOrder(req, res) {
+    try {
+      const updatedUser = await User.findOneAndUpdate(
+        req.user._id,
+        { $addToSet: { orders: req.body.orderid } },
+      );
+      return res.json({
+        updatedUser,
+      });
+    } catch (error) {
+      return res.status(404);
+    }
+  }
+
   async function saveAvatar(req, res) {
     const host = req.get('host');
     const userId = req.user._id;
@@ -51,6 +65,7 @@ function userController() {
     getData,
     saveAvatar,
     updateUser,
+    addOrder,
   };
 }
 
