@@ -32,7 +32,7 @@ function orderController() {
   async function save(req, res) {
     try {
       const newOrder = await Order.create({
-        user: req.user._id,
+        userId: req.user._id,
         date: Date.now(),
         dishes: req.body.dishes,
         isDelivered: false,
