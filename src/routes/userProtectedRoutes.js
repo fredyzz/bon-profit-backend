@@ -8,7 +8,7 @@ const router = express.Router();
 router
   .route('/')
   .get(userController.getData)
-  .put(userController.updateUser);
+  .post(userController.updateUser);
 
 router
   .route('/avatar')
