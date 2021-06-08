@@ -31,8 +31,8 @@ function orderController() {
   async function save(req, res) {
     try {
       const newOrder = await Order.create({
-        userId: req.body.userId,
-        date: req.body.date,
+        userId: req.user._id,
+        date: Date.now(),
         dishes: req.body.dishes,
         isDelivered: false,
         isPaid: false,
@@ -40,8 +40,7 @@ function orderController() {
 
       return res.json(newOrder);
     } catch (error) {
-      console.log(error);
-      // return res.status(404);
+      return res.status(404);
     }
   }
 
