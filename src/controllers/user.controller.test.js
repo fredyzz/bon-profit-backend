@@ -1,4 +1,6 @@
-const { getData, saveAvatar, updateUser } = require('./user.controller')();
+const {
+  getData, saveAvatar, updateUser, addOrder,
+} = require('./user.controller')();
 const User = require('../models/user.model');
 
 jest.mock('../models/user.model');
@@ -179,6 +181,47 @@ describe('Given an userController', () => {
       };
 
       await updateUser(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
+    });
+  });
+
+  describe('invoking a addOrder function', () => {
+    test('should call res.json with an object as argument', async () => {
+      User.findOneAndUpdate.mockImplementationOnce(() => ({
+      }));
+
+      const res = {
+        json: jest.fn(),
+        status: jest.fn(),
+      };
+
+      const req = {
+        user: { _id: 1 },
+        body: { user: {} },
+
+      };
+
+      await addOrder(req, res);
+      expect(res.json).toHaveBeenCalledWith({ updatedUser: {} });
+    });
+  });
+
+  describe('invoking a addOrder function without an id', () => {
+    test('should call res.json with an object as argument', async () => {
+      User.findOneAndUpdate.mockRejectedValueOnce(404);
+
+      const res = {
+        json: jest.fn(),
+        status: jest.fn(),
+      };
+
+      const req = {
+        user: { _id: 1 },
+        body: { user: {} },
+
+      };
+
+      await addOrder(req, res);
       expect(res.status).toHaveBeenCalledWith(404);
     });
   });
