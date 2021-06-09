@@ -1,7 +1,11 @@
-const { getAll, getById, update } = require('./order.controller')();
+const {
+  getAll, getById, update, save,
+} = require('./order.controller')();
 const Order = require('../models/order.model');
+const User = require('../models/user.model');
 
 jest.mock('../models/order.model');
+jest.mock('../models/user.model');
 
 describe('Given a orderController', () => {
   describe('invoking a getAll function', () => {
@@ -99,6 +103,47 @@ describe('Given a orderController', () => {
       };
 
       await update(null, res);
+      expect(res.status).toHaveBeenCalledWith(404);
+    });
+  });
+  describe('invoking a save function', () => {
+    test('should call res.json with an object as argument', async () => {
+      Order.create.mockImplementationOnce(() => ({}));
+      User.findOneAndUpdate.mockImplementationOnce(() => ({}));
+
+      const res = {
+        json: jest.fn(),
+        status: jest.fn(),
+      };
+
+      const req = {
+        user: {
+          _id: 'id',
+        },
+        body: {
+          dishes: [],
+        },
+      };
+
+      await save(req, res);
+      expect(res.json).toHaveBeenCalledWith({});
+    });
+  });
+  describe('invoking a update function without req arguments', () => {
+    test('should return a status 404', async () => {
+      Order.create.mockImplementationOnce(() => ({}));
+      User.findOneAndUpdate.mockImplementationOnce(() => ({}));
+
+      const res = {
+        json: jest.fn(),
+        status: jest.fn(),
+      };
+
+      const req = {
+
+      };
+
+      await save(req, res);
       expect(res.status).toHaveBeenCalledWith(404);
     });
   });
