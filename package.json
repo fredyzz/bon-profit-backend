@@ -40,8 +40,8 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/src/models"
-    ]
+    "coveragePathIgnorePatterns": [
+      "models"
+  ]
   }
 }
