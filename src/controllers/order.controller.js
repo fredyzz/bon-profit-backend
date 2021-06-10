@@ -52,7 +52,6 @@ function orderController() {
   }
 
   async function getAll(req, res) {
-    console.log(req.user._id);
     try {
       const orders = await Order.find({ userId: new ObjectId(req.user._id) });
       return res.json(orders);
