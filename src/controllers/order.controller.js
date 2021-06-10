@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const debug = require('debug')('server:userController');
+const { ObjectId } = require('mongoose').Types;
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
 
@@ -51,8 +52,9 @@ function orderController() {
   }
 
   async function getAll(req, res) {
+    console.log(req.user._id);
     try {
-      const orders = await Order.find({ userId: req.user._Id });
+      const orders = await Order.find({ userId: new ObjectId(req.user._id) });
       return res.json(orders);
     } catch (error) {
       return res.status(404);
