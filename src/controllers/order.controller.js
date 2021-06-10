@@ -3,6 +3,7 @@ const debug = require('debug')('server:userController');
 const { ObjectId } = require('mongoose').Types;
 const Order = require('../models/order.model');
 const User = require('../models/user.model');
+const Dish = require('../models/dish.model');
 
 function orderController() {
   debug('Entered to orderController');
@@ -53,7 +54,9 @@ function orderController() {
 
   async function getAll(req, res) {
     try {
-      const orders = await Order.find({ userId: new ObjectId(req.user._id) });
+      const orders = await Order
+        .find({ userId: new ObjectId(req.user._id) })
+        .populate({ path: 'dishes', model: Dish });
       return res.json(orders);
     } catch (error) {
       return res.status(404);
