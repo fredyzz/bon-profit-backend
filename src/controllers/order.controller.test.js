@@ -8,22 +8,6 @@ jest.mock('../models/order.model');
 jest.mock('../models/user.model');
 
 describe('Given a orderController', () => {
-  describe('invoking a getAll function', () => {
-    test('should call res.json with an object as argument', async () => {
-      Order.findById.mockImplementationOnce(() => ({}));
-
-      const res = {
-        json: jest.fn(),
-        status: jest.fn(),
-      };
-
-      const req = {
-      };
-
-      await getAll(req, res);
-      expect(res.json).toHaveBeenCalled();
-    });
-  });
   describe('invoking a getAll function without req arguments', () => {
     test('should return a status 404', async () => {
       Order.find.mockRejectedValueOnce(404);
